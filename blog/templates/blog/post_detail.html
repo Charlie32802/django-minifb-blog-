@@ -1,0 +1,89 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-lg border-0">
+        <div class="card-body text-center">
+            <small class="text-muted" style="margin-bottom: 30px;">{{ object.date_posted|date:"F d, Y" }}</small>
+            
+            <div>
+                <img class="rounded-circle article-img" src="{{ object.author.profile.image.url }}" style="width: 160px; height: 160px; object-fit: cover;">
+            </div>
+            
+            <h3 class="article-author mt-4">{{ object.author }}</h3>
+
+            <h2 class="article-title mt-5">{{ object.title }}</h2>
+
+            <p class="article-content mt-3">{{ object.content }}</p>
+
+            {% if object.author == user %}
+            <div class="text-center mt-4">
+                <a class="btn btn-secondary btn-lg me-2" href="{% url 'post-update' object.id %}">Update</a>
+                <a class="btn btn-danger btn-lg" href="{% url 'post-delete' object.id %}">Delete</a>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Light background for contrast */
+    }
+
+    .card {
+        border-radius: 15px; /* Rounded corners for a softer look */
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    }
+
+    .article-img {
+        border: 4px solid #007bff; /* Border around profile image */
+    }
+
+    .article-author {
+        font-size: 1.5rem; /* Size for the author name */
+        font-weight: bold; /* Bold font for author name */
+        color: #343a40; /* Dark text for author name */
+        margin-top: 10px; /* Space above the author name */
+    }
+
+    .article-title {
+        font-size: 1.8rem; /* Larger title for emphasis */
+        font-weight: bold; /* Bold font for title */
+        color: #343a40; /* Dark text for title */
+        margin: 15px 0; /* Margin above and below title */
+    }
+
+    .article-content {
+        font-size: 1.1rem; /* Slightly larger font for content */
+        color: #495057; /* Darker muted text for content */
+        line-height: 1.5; /* Increased line height for readability */
+        margin: 20px 0; /* Margin above and below content */
+    }
+
+    .btn {
+        transition: background-color 0.3s ease, transform 0.2s ease; /* Button hover effects */
+    }
+
+    .btn-secondary {
+        background-color: #6c757d; /* Grey color for secondary button */
+        border-color: #6c757d; /* Matching border */
+    }
+
+    .btn-secondary:hover {
+        background-color: #5a6268; /* Darker grey on hover */
+        transform: scale(1.05); /* Slightly grow on hover */
+    }
+
+    .btn-danger {
+        background-color: #dc3545; /* Red color for danger button */
+        border-color: #dc3545; /* Matching border */
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333; /* Darker red on hover */
+        transform: scale(1.05); /* Slightly grow on hover */
+    }
+</style>

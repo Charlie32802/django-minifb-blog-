@@ -1,0 +1,53 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+    <div class="container mt-5">
+        <div class="card shadow-lg border-0">
+            <div class="card-header text-center bg-danger">
+                <h2 class="mb-0" style="color: black;">Delete Post</h2>  <!-- Set color directly -->
+            </div>
+            <div class="card-body text-center">
+                <h4 class="mb-4" style="color: black;">Are you sure you want to delete the post <strong>"{{ object.title }}"</strong>?</h4>  <!-- Set color directly -->
+                <p class="text-muted">This action cannot be undone.</p>
+                <!-- Reference your image here -->
+                <img src="{% static 'warning-icon.png' %}" alt="Warning" class="img-fluid my-4" style="max-width: 100px;">
+            </div>
+            <div class="card-footer text-center">
+                <form method="POST">
+                    {% csrf_token %}
+                    <button class="btn btn-danger btn-lg me-2" type="submit">Yes, Delete</button>
+                    <a class="btn btn-outline-secondary btn-lg" href="{% url 'post-detail' object.id %}">Cancel</a>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+<style>
+    body {
+        background-color: #f8f9fa; /* Light background for contrast */
+    }
+
+    .card {
+        border-radius: 15px; /* Rounded corners for a softer look */
+    }
+
+    .card-header {
+        border-top-left-radius: 15px;
+        border-top-right-radius: 15px;
+    }
+
+    .btn {
+        transition: background-color 0.3s ease, transform 0.2s ease;
+    }
+
+    .btn-danger:hover {
+        background-color: #c82333; /* Darker red on hover */
+        transform: scale(1.05); /* Slightly grow on hover */
+    }
+
+    .btn-outline-secondary:hover {
+        background-color: #e2e6ea; /* Light grey background on hover */
+    }
+</style>

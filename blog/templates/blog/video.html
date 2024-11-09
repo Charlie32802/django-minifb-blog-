@@ -1,0 +1,30 @@
+{% extends "blog/base.html" %}
+{% load custom_filters %}
+
+{% block content %}
+  <div class="container mt-5 mb-4">
+    <div class="row">
+      <div class="col-md-8 offset-md-2 text-center">
+        <!-- Display the video -->
+        <div class="embed-responsive embed-responsive-16by9 mb-4 video-container">
+          <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/{{ video_number }}" allowfullscreen></iframe>
+        </div>
+
+        <div class="pagination-container">
+          <!-- Pagination buttons and numbers -->
+          <div class="mb-3">
+            <a href="{% url 'video' video_number=prev_number %}" class="btn btn-outline-primary me-2 {% if video_number == 1 %}disabled{% endif %}">Go Back</a>
+
+            <span class="pagination-numbers">
+                {% for i in 5|range_filter %}
+                  <a href="{% url 'video' video_number=i %}" class="btn btn-outline-secondary {% if video_number == i %}active{% endif %}">{{ i }}</a>
+                {% endfor %}
+            </span>
+
+            <a href="{% url 'video' video_number=next_number %}" class="btn btn-outline-primary ms-2 {% if video_number == 5 %}disabled{% endif %}">Next</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  {% endblock %}

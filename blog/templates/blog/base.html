@@ -1,0 +1,247 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Nigahibook</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+  </head>
+  <body>
+    <!-- NAVBAR-->
+    <div class="container">
+      <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+        <div class="col-md-3 mb-2 mb-md-0">
+          <a href="{% url 'bl-home' %}" class="d-inline-flex link-body-emphasis text-decoration-none">
+            <img src="{% static 'blog/profile_pics/nigahibook-logo.png' %}" alt="Nigahibook Logo" width="200" height="auto">
+          </a>
+        </div>
+
+        <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+          <li>
+            <a href="{% url 'bl-home' %}" class="nav-link px-2 link-dark" title="Home">
+              <i class="fa fa-home fa-2x" style="color: black;" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'bl-about' %}" class="nav-link px-2 link-dark" title="About">
+              <i class="fa fa-info-circle fa-2x" style="color: black;" aria-hidden="true"></i>
+            </a>
+          </li>
+          <li>
+            <a href="{% url 'video' video_number=1 %}" class="nav-link px-2 link-dark" title="Video">
+              <i class="fa fa-video-camera fa-2x" style="color: black;" aria-hidden="true"></i>
+            </a>
+          </li>
+        </ul>        
+
+        <div class="col-md-3 text-end">
+          {% if user.is_authenticated %}
+            <form method="post" action="{% url 'logout' %}" style="display:inline;">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-outline-primary me-2">Logout</button>     
+            </form>
+            <a class="btn btn-outline-primary me-2" href="{% url 'profile' %}">Profile</a>
+          {% else %}
+            <a type="button" class="btn btn-outline-primary me-2" href="{% url 'login' %}">Login</a>
+            <a type="button" class="btn btn-primary" href="{% url 'register' %}">Sign-up</a>
+          {% endif %}
+        </div>
+      </header>
+    </div>
+    <!-- MAIN CONTENT -->
+    <!--- \\\\\\\Post-->
+    {% block content %}{% endblock %}
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.8/dist/umd/popper.min.js" integrity="sha384-I7E8VVD/ismYTF4hNIPjVp/Zjvgyol6VFvRkX/vR+Vc4jQkC+hVqc2pM8ODewa9r" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-0pUGZvbkm6XF6gxjEnlmuGrJXVbNuzT9qBBavbLwCsOGabYfZo0T0to5eqruptLy" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  </body>
+</html>
+
+<style>
+/* General Styles */
+body {
+    font-family: 'Roboto', sans-serif; /* Elegant font */
+    background: linear-gradient(to bottom right, #f3e0fa, #b2ebf2); /* Soft blue gradient */
+    color: #343a40; /* Dark text for readability */
+    line-height: 1.6; /* Improved readability */
+}
+
+h1, h2, h3, h4, h5 {
+    color: #007bff; /* Luxurious blue for headings */
+    text-align: center; /* Centered headings for impact */
+    font-weight: bold; /* Emphasized text */
+}
+
+h1 {
+    font-size: 2.5rem; /* Larger size for main title */
+}
+
+h2 {
+    font-size: 2rem; /* Slightly smaller for section titles */
+}
+
+h3 {
+    font-size: 1.75rem; /* Size for subsections */
+}
+
+/* Container Styles */
+.container {
+    max-width: 1200px; /* Limiting max width for large screens */
+    margin: 0 auto; /* Center the container */
+    padding: 15px; /* Padding around content */
+}
+
+/* Card Styles */
+.card {
+    border: none; /* Remove default border */
+    border-radius: 10px; /* Rounded corners */
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth hover effects */
+}
+
+.card:hover {
+    transform: translateY(-5px); /* Lift effect on hover */
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2); /* Enhanced shadow */
+}
+
+.card-title {
+    color: #000000; /* Set card titles to black */
+}
+
+/* Button Styles */
+.btn {
+    border-radius: 25px; /* Rounded buttons */
+    padding: 10px 20px; /* Padding for buttons */
+    font-size: 1rem; /* Button font size */
+    transition: background-color 0.3s, transform 0.2s; /* Smooth transitions */
+}
+
+.btn-primary {
+    background-color: #007bff; /* Primary button color */
+    border: none; /* Remove border */
+}
+
+.btn-primary:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+    transform: scale(1.05); /* Slight grow effect on hover */
+}
+
+/* Navigation Styles */
+.nav-link {
+    color: #007bff !important; /* Consistent link color */
+    margin: 0 15px;
+}
+
+.nav-link:hover {
+    text-decoration: underline; /* Underline links on hover */
+}
+
+/* Form Styles */
+.form-control {
+    border-radius: 10px; /* Rounded input fields */
+    border: 1px solid #ced4da; /* Light border */
+    transition: border-color 0.3s; /* Smooth border color change */
+}
+
+.form-control:focus {
+    border-color: #007bff; /* Blue border on focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Subtle shadow on focus */
+}
+
+/* Utility Classes */
+.text-primary {
+    color: #007bff; /* Primary color */
+}
+
+.text-center {
+    text-align: center; /* Center text utility */
+}
+
+/* Miscellaneous */
+footer {
+    background-color: #343a40; /* Dark footer background */
+    color: white; /* White text in footer */
+    padding: 20px; /* Padding around footer */
+    text-align: center; /* Centered footer text */
+}
+
+.mt-5 {
+    margin-top: 3rem; /* Margin-top utility */
+}
+
+.mb-4 {
+    margin-bottom: 1.5rem; /* Margin-bottom utility */
+}
+
+.row {
+    margin: 0; /* Reset row margin */
+}
+
+.col-md-4 {
+    padding: 10px; /* Padding for columns */
+}
+
+/* Luxurious Pagination Styling */
+.pagination-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 15px;
+}
+
+.pagination-numbers a {
+    border-radius: 25px;
+    padding: 12px 18px;
+    font-size: 1.35rem;
+    color: #007bff; /* Luxurious blue (similar to the blue used in the body and headers) */
+    background-color: rgba(255, 255, 255, 0.2);
+    transition: background-color 0.3s, transform 0.2s;
+    box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3); /* Soft blue shadow */
+    text-decoration: none;
+}
+
+.pagination-numbers a.active {
+    background-color: #007bff; /* Luxurious blue */
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.8), 0 4px 20px rgba(0, 123, 255, 0.6);
+}
+
+.pagination-numbers a:hover {
+    background-color: #0056b3; /* Darker blue (matching the hover effect for buttons) */
+    transform: scale(1.05);
+}
+
+/* Button Styling for Pagination - Match Style */
+.pagination-container .btn {
+    font-size: 1.15rem;
+    padding: 12px 25px;
+    border-radius: 25px;
+    background-color: #00b0ff; /* Soft blue for buttons (matching body primary color) */
+    color: white;
+    border: none;
+    box-shadow: 0 4px 10px rgba(0, 176, 255, 0.5);
+    transition: background-color 0.3s, transform 0.2s, box-shadow 0.3s ease;
+}
+
+.pagination-container .btn:hover {
+    background-color: #0094cc; /* Slightly darker blue (matching button hover color) */
+    transform: scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 148, 204, 0.6);
+}
+
+.pagination-container .btn.disabled {
+    background-color: #e0e0e0;
+    color: #6c757d;
+    box-shadow: none;
+    cursor: not-allowed;
+}
+</style>
